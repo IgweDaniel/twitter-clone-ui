@@ -7,20 +7,24 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import { RenderRetweeted } from "./RenderRetweeted";
 import { TweetActions } from "./TweetActions";
 
-export const RenderTweet = ({ status, type, count, viewStatus }) => {
+export const RenderTweet = ({ status, type, count, originalId }) => {
   const navigation = useNavigation();
   if (count == 4) return null;
   return (
     <>
-      {status["in_reply_to_status"] && (
+      {!originalId && originalId != status.id ? (
         <>
-          <RenderTweet
-            count={(count += 1)}
-            type="reply"
-            status={status["in_reply_to_status"]}
-          />
+          {status["in_reply_to_status"] && (
+            <>
+              <RenderTweet
+                count={(count += 1)}
+                type="reply"
+                status={status["in_reply_to_status"]}
+              />
+            </>
+          )}
         </>
-      )}
+      ) : null}
       <View style={styles.statusCard}>
         <View style={styles.user}>
           <Avatar uri={status.user.avatar} size={45} />

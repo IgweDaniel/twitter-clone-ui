@@ -6,6 +6,7 @@ import Home from "./Home";
 import Profile from "./Profile";
 import Bookmarks from "./Bookmarks";
 import Tweet from "./Tweet";
+import TweetForm from "./TweetForm";
 
 const AppDrawer = createDrawerNavigator();
 
@@ -15,7 +16,13 @@ const Main = () => {
       drawerContent={(props) => <DrawerContent {...props} />}
       initialRouteName="Home"
     >
-      <AppDrawer.Screen name="Home" component={Home} />
+      <AppDrawer.Screen
+        options={{
+          unmountOnBlur: true,
+        }}
+        name="Home"
+        component={Home}
+      />
       <AppDrawer.Screen name="Profile" component={Profile} />
       <AppDrawer.Screen name="Bookmarks" component={Bookmarks} />
     </AppDrawer.Navigator>
@@ -27,6 +34,7 @@ export default () => {
     <AppStack.Navigator headerMode="none" initialRouteName="Main">
       <AppStack.Screen name="Main" component={Main} />
       <AppDrawer.Screen name="Tweet" component={Tweet} />
+      <AppDrawer.Screen name="TweetForm" component={TweetForm} />
     </AppStack.Navigator>
   );
 };

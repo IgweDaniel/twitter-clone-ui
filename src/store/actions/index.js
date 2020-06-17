@@ -1,5 +1,6 @@
 import { LOGIN, LOGOUT } from "../types";
-import Axios from "axios";
+
+import { axios } from "../../utils/axios";
 
 // export const login = (email, password) => async dispatch => {
 //     const body = JSON.stringify({ email, password });
@@ -30,7 +31,7 @@ export const login = (email, password) => async (dispatch) => {
   const body = JSON.stringify({ email, password });
 
   try {
-    const res = await Axios.post("http://e96abbb57645.ngrok.io/user/auth", {
+    const res = await axios.post("user/auth", {
       email,
       password,
     });
@@ -60,3 +61,20 @@ export const logout = (email, password) => async (dispatch) => {
     type: LOGOUT,
   });
 };
+
+// export const getUser = () => async (dispatch) => {
+//   // console.log(user_id);
+//   // const body = JSON.stringify({ email, password });
+//   // dispatch({
+//   //   type: LOGOUT,
+//   // });
+// };
+
+// export const followUser = (user_id) => async (dispatch) => {
+//   console.log(user_id);
+
+//   // const body = JSON.stringify({ email, password });
+//   // dispatch({
+//   //   type: LOGOUT,
+//   // });
+// };

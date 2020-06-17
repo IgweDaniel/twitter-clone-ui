@@ -337,6 +337,28 @@ export const notifications = [
   },
 ];
 export const replies = [];
+export const users = [
+  {
+    email: "testEmail@ymail.com",
+    followed_count: 1,
+    followers_count: 0,
+    id: 1,
+    bio: "A time comes when all shall gather",
+    username: "John Doe",
+    avatar:
+      "https://images.pexels.com/photos/91227/pexels-photo-91227.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
+  },
+  {
+    email: "Janey@ymail.com",
+    followed_count: 0,
+    followers_count: 0,
+    id: 2,
+    bio: "Doe is my name and code is the game",
+    username: "Jane Doe",
+    avatar:
+      "https://images.pexels.com/photos/1036622/pexels-photo-1036622.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
+  },
+];
 // export const replies = [
 //   {
 //     id: 2,

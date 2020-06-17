@@ -1,9 +1,28 @@
 import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, View, TextInput, Keyboard } from "react-native";
 import { Button, Paragraph } from "./shared";
+import { connect } from "react-redux";
+import { axios } from "../utils/axios";
 
-export default function ReplyForm() {
+function ReplyForm({ statusId, token }) {
   const [show, setShow] = useState(false);
+  const [text, setText] = useState("");
+
+  async function replyTweet() {
+    if (text == "") return;
+    const res = await axios.post(
+      "/statuses/reply",
+      { id: statusId, text },
+      {
+        headers: {
+          "x-access-token": token,
+        },
+      }
+    );
+    setText("");
+    Keyboard.dismiss();
+    console.log(res.data);
+  }
 
   const _keyboardDidShow = () => {
     setShow(true);
@@ -25,16 +44,28 @@ export default function ReplyForm() {
   return (
     <View style={styles.replyForm}>
       {show && <Paragraph>Replying to @user</Paragraph>}
-      <TextInput style={styles.replyInput} placeholder="Tweet your reply" />
+      <TextInput
+        value={text}
+        onChangeText={(text) => setText(text)}
+        style={styles.replyInput}
+        placeholder="Tweet your reply"
+      />
       {show && (
         <View style={styles.replyActions}>
-          <Button title="Reply" />
+          <Button title="Reply" onPress={() => replyTweet()} />
         </View>
       )}
     </View>
   );
 }
 
+const mapStateToProps = (state) => {
+  return {
+    token: state.user.token,
+  };
+};
+
+export default connect(mapStateToProps)(ReplyForm);
 const styles = StyleSheet.create({
   replyForm: {
     borderTopColor: "#ccc",

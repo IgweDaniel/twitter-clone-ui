@@ -2,7 +2,7 @@ import { LOGOUT, LOGIN } from "../types";
 
 const initialState = {
   //   token: localStorage.getItem("token"),
-  isAuthenticated: true,
+  isAuthenticated: false,
   loading: true,
   token: "",
   user: {

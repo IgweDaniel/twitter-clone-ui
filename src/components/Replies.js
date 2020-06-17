@@ -1,9 +1,32 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, View, FlatList } from "react-native";
 import { RenderTweet } from "./RenderTweet";
-import { replies } from "../../fakedata";
+import { connect } from "react-redux";
+import { axios } from "../utils/axios";
+// import { replies } from "../../fakedata";
 
-export default function Replies({ tweetId }) {
+function Replies({ statusId, token }) {
+  const [replies, setReplies] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  async function getReplies() {
+    try {
+      const res = await axios.get(`/statuses/${statusId}/replies`, {
+        headers: {
+          "x-access-token": token,
+        },
+      });
+      setReplies(res.data.data.replies);
+      // setReplies(res.data.data.status);
+      setLoading(false);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  useEffect(() => {
+    getReplies();
+  }, []);
   const COUNT = 1;
   return (
     <FlatList
@@ -11,7 +34,7 @@ export default function Replies({ tweetId }) {
       data={replies}
       renderItem={({ item }) => (
         <View style={styles.status}>
-          <RenderTweet count={COUNT} status={item} />
+          <RenderTweet count={COUNT} originalId={statusId} status={item} />
         </View>
       )}
       keyExtractor={(item) => `${item.id}`}
@@ -19,6 +42,13 @@ export default function Replies({ tweetId }) {
   );
 }
 
+const mapStateToProps = (state) => {
+  return {
+    token: state.user.token,
+  };
+};
+
+export default connect(mapStateToProps)(Replies);
 const styles = StyleSheet.create({
   timeline: {
     backgroundColor: "#fff",

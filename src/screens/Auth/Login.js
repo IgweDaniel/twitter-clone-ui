@@ -15,8 +15,8 @@ import { PRIMARY_COLOR } from "../../utils/constants";
 
 const LoginIn = ({ navigation, login }) => {
   const [authdetails, setAuthdetails] = useState({
-    email: "",
-    password: "",
+    email: "danielchibuzoIgwe@gmail.com",
+    password: "password",
   });
   const onInputChange = (val) => {
     setAuthdetails({ ...authdetails, [val.type]: val.text });
